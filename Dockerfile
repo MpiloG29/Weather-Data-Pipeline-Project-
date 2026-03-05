@@ -20,5 +20,5 @@ COPY . .
 # Create data directory
 RUN mkdir -p /app/data
 
-# Default command - runs the pipeline with option 1
+# Run the pipeline with option 1 (ETL only)
 CMD ["python", "run_pipeline.py", "1"]
