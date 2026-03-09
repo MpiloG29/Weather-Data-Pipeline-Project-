@@ -1,0 +1,7 @@
+﻿{
+    "python.defaultInterpreterPath": "C:\\Users\\CAPACITI-JHB\\miniforge3\\envs\\weather-pipeline\\python.exe",
+    "python.terminal.activateEnvironment": true,
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    "python.condaPath": "C:\\Users\\CAPACITI-JHB\\miniforge3\\Scripts\\conda.exe",
+    "python.envFile": "${workspaceFolder}/.env"
+}

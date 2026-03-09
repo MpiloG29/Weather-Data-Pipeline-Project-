@@ -1,55 +1,12 @@
-﻿services:
-  weather_app:
+﻿version: '3.8'
+
+services:
+  weather-pipeline:
     build: .
-    container_name: weather_pipeline_app
-    command: ["python", "run_app.py", "--mode", "all", "--output-dir", "output"]
+    container_name: weather-pipeline
     volumes:
+      - ./data:/app/data
       - ./output:/app/output
-      - ./weather_data.db:/app/weather_data.db
-
-  dashboard_ui:
-    image: python:3.11-slim
-    container_name: weather_dashboard_ui
-    working_dir: /srv
-    command: ["python", "-m", "http.server", "8080"]
-    volumes:
-      - ./output:/srv
-    ports:
-      - "8080:8080"
-    depends_on:
-      - weather_app
-
-  postgres:
-    image: postgres:15
-    container_name: weather_postgres
     environment:
-      POSTGRES_DB: weather_db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-    command: postgres
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    profiles: ["postgres"]
-
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: weather_pgadmin
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@weather.com
-      PGADMIN_DEFAULT_PASSWORD: admin
-    ports:
-      - "5050:80"
-    depends_on:
-      - postgres
-    profiles: ["postgres"]
-
-volumes:
-  postgres_data:
+      - DATABASE_URL=sqlite:///data/weather_data.db
+    command: python run_pipeline.py 1

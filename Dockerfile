@@ -9,16 +9,19 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements first
+# Copy requirements first for better caching
 COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
-COPY . .
+COPY src/ ./src/
+COPY config/ ./config/
+COPY dashboard/ ./dashboard/
+COPY run_pipeline.py .
 
 # Create data directory
 RUN mkdir -p /app/data
 
-# Run the pipeline with option 1 (ETL only)
+# Run the pipeline (can be overridden)
 CMD ["python", "run_pipeline.py", "1"]
