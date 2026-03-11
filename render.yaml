@@ -1,16 +1,14 @@
 services:
-  - type: cron
+  - type: web
     name: weather-pipeline
     runtime: docker
-    repo: https://github.com/MpiloG29/Weather-Data-Pipeline-Project-
-    branch: master
-    dockerfilePath: ./Dockerfile
-    schedule: "0 * * * *"  # Runs every hour
+    dockerfilePath: ./Dockerfile.web
+    healthCheckPath: /status
     envVars:
       - key: DATABASE_URL
         value: sqlite:///data/weather_data.db
-      - key: PORT
-        value: 5000
+      - key: PYTHONUNBUFFERED
+        value: "1"
     disk:
       name: weather-data
       mountPath: /app/data
