@@ -85,6 +85,8 @@ bash
 git clone https://github.com/MpiloG29/Weather-Data-Pipeline-Project-
 cd weather-data-pipeline
 
+Live Link: https://weather-data-pipeline-project-2jxz.onrender.com
+
 # 2. Create and activate virtual environment
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
