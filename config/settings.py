@@ -15,9 +15,9 @@ class Colors:
     BOLD = Style.BRIGHT
 
 # --- SQLite Configuration ---
-# Simple file-based database, no authentication needed!
 DB_PATH = os.path.abspath('weather_data.db')
-DATABASE_URL = f"sqlite:///{DB_PATH}"
+# Use DATABASE_URL env var if set (e.g. on Render), otherwise fall back to local file
+DATABASE_URL = os.environ.get('DATABASE_URL', f"sqlite:///{DB_PATH}")
 
 # Keep DB_CONFIG for any legacy code
 DB_CONFIG = {
